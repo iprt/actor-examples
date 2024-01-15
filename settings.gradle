@@ -1,2 +1,5 @@
 rootProject.name = 'actor-examples'
 
+include("actor-core")
+
+include("actor-springboot")
