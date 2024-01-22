@@ -1,0 +1,53 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'org.iproute'
+version = '1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url "https://repo.akka.io/maven" }
+    mavenCentral()
+}
+
+def versions = [
+        ScalaBinary: "2.13"
+]
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.apache.commons:commons-lang3'
+
+    implementation platform("com.typesafe.akka:akka-bom_${versions.ScalaBinary}:2.9.1")
+    implementation "com.typesafe.akka:akka-actor-typed_${versions.ScalaBinary}"
+
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform() {
+        includeEngines("junit-jupiter")
+    }
+}
