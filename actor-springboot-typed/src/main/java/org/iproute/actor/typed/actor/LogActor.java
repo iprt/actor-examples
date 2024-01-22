@@ -32,4 +32,5 @@ public class LogActor extends AbstractBehavior<String> {
         System.out.println("log ===> " + msg);
         return this;
     }
+
 }
