@@ -19,8 +19,8 @@ public class ActorTest {
         BehaviorTestKit<String> probe =
                 BehaviorTestKit.create(PrintActor.create(), "PrintActor");
 
-        probe.run("print");
 
+        probe.run("print");
     }
 
 }
